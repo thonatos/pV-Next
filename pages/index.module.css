@@ -1,5 +1,4 @@
 .container {
-  padding: 0 2rem;
 }
 
 .main {
@@ -11,3 +10,11 @@
   justify-content: center;
   align-items: center;
 }
+
+/* .footer {
+  background: #eaeaea;
+  display: flex;
+  padding: 2rem;
+
+  color: white;
+} */

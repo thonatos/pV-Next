@@ -11,9 +11,12 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "ahooks": "^3.3.0",
+    "iron-session": "^6.1.2",
     "next": "12.1.5",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "siwe": "^1.1.6"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
@@ -22,7 +25,9 @@
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.5",
     "eslint-config-prettier": "^8.5.0",
+    "ethers": "5.5.1",
     "prettier": "^2.6.2",
-    "typescript": "4.6.3"
+    "typescript": "4.6.3",
+    "web3": "^1.7.3"
   }
 }

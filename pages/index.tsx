@@ -42,8 +42,8 @@ const Home: NextPage = () => {
     return (
       <div>
         <h4>Provider</h4>
-        <div>ChainId: {chainId}</div>
-        <div>NetworkVersion: {networkVersion}</div>
+        <p>ChainId: {chainId}</p>
+        <p>NetworkVersion: {networkVersion}</p>
       </div>
     );
   };
@@ -56,7 +56,11 @@ const Home: NextPage = () => {
     return (
       <div>
         <h4>Accounts</h4>
-        <p>Click wallet address to Sign-In with Ethereum .</p>
+        <p>
+          <small className={styles.tips}>
+            Click wallet address to Sign-In with Ethereum .
+          </small>
+        </p>
         <div>
           {accounts.map((account) => {
             return (
@@ -97,16 +101,33 @@ const Home: NextPage = () => {
       />
 
       <main className={styles.main}>
-        <h2>
-          ρV{`   `}
-          <small>undefined project</small>
-        </h2>
         <div>
+          <h2>ρV - undefined project</h2>
+          <p>
+            <small className={styles.tips}>
+              Please install{' '}
+              <a
+                href="https://metamask.io/download/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                MetaMask
+              </a>{' '}
+              or open site with DApp Browser.
+            </small>
+          </p>
           <p>SSO - Auth provider powered by Ethereum & Next.js .</p>
-          <p>Proposals:</p>
+        </div>
+
+        <div>
+          <h4>Proposals</h4>
           <ul>
             <li>
-              <a href="https://eips.ethereum.org/EIPS/eip-4361" target="_blank" rel="noreferrer">
+              <a
+                href="https://eips.ethereum.org/EIPS/eip-4361"
+                target="_blank"
+                rel="noreferrer"
+              >
                 EIP-4361: Sign-In with Ethereum.
               </a>
             </li>

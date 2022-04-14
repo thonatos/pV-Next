@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import type { NextPage, NextPageContext } from 'next';
@@ -7,19 +7,30 @@ import styles from './index.module.css';
 import useWallet from 'hooks/useWallet';
 
 const Home: NextPage = () => {
-  const { accounts, setWeb3 } = useWallet();
+  const [nonce, setNonce] = useState('');
+  const { accounts, setWeb3, personalSign } = useWallet();
 
   useEffect(() => {
     const init = async () => {
       const res = await fetch(`/api/init`);
       const { data } = await res.json();
       console.debug('===HomePage', data);
+
+      setNonce(data.nonce);
     };
 
     init();
   }, []);
 
-  console.debug('===HomePage.accounts', accounts);
+  const onLogin = async (account: string) => {
+    const signData = await personalSign(account, nonce);
+    const res = await fetch('/api/login', {
+      method: 'post',
+      body: JSON.stringify(signData),
+    });
+    const { data } = await res.json();
+    console.debug('===HomePage.onLogin.data', data);
+  };
 
   const renderAccountList = () => {
     if (!accounts || accounts.length === 0) {
@@ -29,11 +40,21 @@ const Home: NextPage = () => {
     return (
       <div>
         <h4>accounts</h4>
-        <ul className={styles.ul}>
+        <div>
           {accounts.map((account) => {
-            return <li key={account}>{account}</li>;
+            return (
+              <div
+                key={account}
+                className={styles.account}
+                onClick={() => {
+                  onLogin(account);
+                }}
+              >
+                {account}
+              </div>
+            );
           })}
-        </ul>
+        </div>
       </div>
     );
   };

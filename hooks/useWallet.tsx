@@ -48,30 +48,18 @@ const useWallet = () => {
         // expirationTime: dayjs().add(1, 'd').toISOString(),
       });
 
-      console.debug('===siweMessage', siweMessage);
+      console.debug('===useWallet.personalSign.siweMessage', siweMessage);
 
       const message = siweMessage.prepareMessage();
-      console.debug('===message', message);
+      console.debug('===useWallet.personalSign.message', message);
 
       const signature = await web3.eth.personal.sign(message, address, '');
-      console.debug('===signature', signature);
+      console.debug('===useWallet.personalSign.signature', signature);
 
       return {
         message,
         signature,
       };
-
-      // const endpoint =
-      //   domain === 'console.implements.io' ? BASE_URL : 'http://localhost:7001';
-      // const { data } = await request(`${endpoint}/openApi/oauth/ethereum`, {
-      //   method: 'post',
-      //   data: {
-      //     message,
-      //     signature,
-      //   },
-      // });
-      // console.debug('===data', data);
-      // updateUser(data.user || '');
     },
     [web3]
   );

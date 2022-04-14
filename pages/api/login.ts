@@ -15,13 +15,14 @@ const loginRoute = async (
     return;
   }
 
-  const { message, signature } = req.body;
+  const { message, signature } = JSON.parse(req.body || '{}');
 
   if (!message || !signature) {
     res.status(422).json({
       success: false,
       message: 'invalid params',
     });
+    return;
   }
 
   const siwe = new SiweMessage(message);

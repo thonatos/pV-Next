@@ -11,12 +11,11 @@
   /* align-items: center; */
 }
 
-.ul {
-  list-style: none;
-  padding-left: 0;
-}
-
 .footer {
   display: flex;
   padding: 1rem 4rem;
+}
+
+.account {
+  display: flex;
 }

@@ -1,14 +1,15 @@
 .container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .main {
-  min-height: 100vh;
-  padding: 4rem;
   flex: 1;
+  padding: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
 }
 
 .footer {

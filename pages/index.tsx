@@ -8,7 +8,7 @@ import useWallet from 'hooks/useWallet';
 
 const Home: NextPage = () => {
   const [nonce, setNonce] = useState('');
-  const { accounts, setWeb3, personalSign } = useWallet();
+  const { web3, setWeb3, accounts, personalSign } = useWallet();
 
   useEffect(() => {
     const init = async () => {
@@ -32,14 +32,31 @@ const Home: NextPage = () => {
     console.debug('===HomePage.onLogin.data', data);
   };
 
-  const renderAccountList = () => {
+  const renderBlockchain = () => {
+    if (!web3) {
+      return null;
+    }
+
+    const { chainId, networkVersion } = web3.givenProvider;
+
+    return (
+      <div>
+        <h4>Provider</h4>
+        <div>ChainId: {chainId}</div>
+        <div>NetworkVersion: {networkVersion}</div>
+      </div>
+    );
+  };
+
+  const renderAccountInfo = () => {
     if (!accounts || accounts.length === 0) {
       return null;
     }
 
     return (
       <div>
-        <h4>accounts</h4>
+        <h4>Accounts</h4>
+        <p>Click wallet address to Sign-In with Ethereum .</p>
         <div>
           {accounts.map((account) => {
             return (
@@ -80,9 +97,24 @@ const Home: NextPage = () => {
       />
 
       <main className={styles.main}>
-        <h3>ρV - undefined project</h3>
+        <h2>
+          ρV{`   `}
+          <small>undefined project</small>
+        </h2>
+        <div>
+          <p>SSO - Auth provider powered by Ethereum & Next.js .</p>
+          <p>Proposals:</p>
+          <ul>
+            <li>
+              <a href="https://eips.ethereum.org/EIPS/eip-4361" target="_blank">
+                EIP-4361: Sign-In with Ethereum.
+              </a>
+            </li>
+          </ul>
+        </div>
 
-        {renderAccountList()}
+        {renderBlockchain()}
+        {renderAccountInfo()}
       </main>
 
       <footer className={styles.footer}>

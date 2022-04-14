@@ -106,7 +106,7 @@ const Home: NextPage = () => {
           <p>Proposals:</p>
           <ul>
             <li>
-              <a href="https://eips.ethereum.org/EIPS/eip-4361" target="_blank">
+              <a href="https://eips.ethereum.org/EIPS/eip-4361" target="_blank" rel="noreferrer">
                 EIP-4361: Sign-In with Ethereum.
               </a>
             </li>

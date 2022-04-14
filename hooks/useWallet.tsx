@@ -12,6 +12,10 @@ const useWallet = () => {
     }
 
     const accounts = await web3.eth.requestAccounts();
+    console.debug('===useWallet.requestAccounts', accounts);
+
+    setAccounts(accounts);
+
     return accounts;
   }, [web3]);
 
@@ -71,6 +75,18 @@ const useWallet = () => {
     },
     [web3]
   );
+
+  useEffect(() => {
+    if (!web3) {
+      return;
+    }
+
+    if (accounts.length > 0) {
+      return;
+    }
+
+    requestAccounts();
+  }, [web3, accounts]);
 
   return {
     // base

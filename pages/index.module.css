@@ -3,18 +3,20 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  padding: 4rem;
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
-/* .footer {
-  background: #eaeaea;
-  display: flex;
-  padding: 2rem;
+.ul {
+  list-style: none;
+  padding-left: 0;
+}
 
-  color: white;
-} */
+.footer {
+  display: flex;
+  padding: 1rem 4rem;
+}

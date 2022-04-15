@@ -13,7 +13,9 @@ const useWallet = () => {
     window._web3 = _web3;
     setWeb3(_web3);
 
-    // setWeb3()
+    const _chainId = _web3.givenProvider.chainId;
+
+    setChainId(_chainId);
   }, []);
 
   const addEthereumChain = useCallback(async () => {

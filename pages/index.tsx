@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Script from 'next/script';
 import type { NextPage, NextPageContext } from 'next';
 
+import { Container, Spacer, Button, Text } from '@nextui-org/react';
+
 import styles from './index.module.css';
 import useWallet from 'hooks/useWallet';
 
@@ -69,9 +71,12 @@ const Home: NextPage = () => {
     }
 
     return (
-      <small>
-        <button onClick={onChangeNetwork}>Switch to BSC Test Network</button>
-      </small>
+      <>
+        <Button size="sm" onClick={onChangeNetwork}>
+          Switch to BSC Test Network
+        </Button>
+        <Spacer />
+      </>
     );
   };
 
@@ -84,11 +89,15 @@ const Home: NextPage = () => {
 
     return (
       <div>
-        <h4>Provider</h4>
-        <p>
-          ChainId: {chainId} {renderChangeNetwork()}
-        </p>
-        <p>NetworkVersion: {networkVersion}</p>
+        <Text h4>Provider</Text>
+        <Spacer />
+        <Text>
+          ChainId: {chainId}
+          <br />
+          NetworkVersion: {networkVersion}
+        </Text>
+        <Spacer />
+        {renderChangeNetwork()}
       </div>
     );
   };
@@ -100,18 +109,15 @@ const Home: NextPage = () => {
 
     return (
       <div>
-        <h4>Accounts</h4>
-        <p>
-          <small className={styles.tips}>
-            Click wallet address to Sign-In with Ethereum .
-          </small>
-        </p>
+        <Text h4>Accounts</Text>
+        <Spacer />
+        <Text blockquote>Click wallet address to Sign-In with Ethereum .</Text>
+        <Spacer />
         <div>
           {accounts.map((account) => {
             return (
               <div
                 key={account}
-                className={styles.account}
                 onClick={() => {
                   if (chainId !== '0x61') {
                     alert('please switch to Switch to BSC Test Network!');
@@ -125,12 +131,13 @@ const Home: NextPage = () => {
             );
           })}
         </div>
+        <Spacer />
       </div>
     );
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Home - ρV</title>
         <meta name="description" content="undefined project - ρV" />
@@ -145,11 +152,17 @@ const Home: NextPage = () => {
         }}
       />
 
-      <main className={styles.main}>
-        <div>
-          <h2>ρV - undefined project</h2>
-          <p>
-            <small className={styles.tips}>
+      <Container
+        as="main"
+        display="flex"
+        direction="column"
+        style={{ height: '100vh' }}
+      >
+        <main className={styles.main}>
+          <div>
+            <Text h2>ρV - undefined project</Text>
+            <Spacer />
+            <Text blockquote>
               Please install{' '}
               <a
                 href="https://metamask.io/download/"
@@ -159,15 +172,16 @@ const Home: NextPage = () => {
                 MetaMask
               </a>{' '}
               or open site with DApp Browser.
-            </small>
-          </p>
-          <p>SSO - Auth provider powered by Ethereum & Next.js .</p>
-        </div>
+            </Text>
+            <Spacer />
+            <Text>SSO - Auth provider powered by Ethereum & Next.js .</Text>
+            <Spacer />
+          </div>
 
-        <div>
-          <h4>Proposals</h4>
-          <ul>
-            <li>
+          <div>
+            <Text h4>Proposals</Text>
+            <Spacer />
+            <Text>
               <a
                 href="https://eips.ethereum.org/EIPS/eip-4361"
                 target="_blank"
@@ -175,18 +189,19 @@ const Home: NextPage = () => {
               >
                 EIP-4361: Sign-In with Ethereum.
               </a>
-            </li>
-          </ul>
-        </div>
+            </Text>
+            <Spacer />
+          </div>
 
-        {renderBlockchain()}
-        {renderAccountInfo()}
-      </main>
+          {renderBlockchain()}
+          {renderAccountInfo()}
+        </main>
 
-      <footer className={styles.footer}>
-        {`@${new Date().getFullYear()} - implements.io`}
-      </footer>
-    </div>
+        <footer className={styles.footer}>
+          <Text>{`@${new Date().getFullYear()} - implements.io`}</Text>
+        </footer>
+      </Container>
+    </>
   );
 };
 

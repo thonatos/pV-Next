@@ -43,6 +43,8 @@ const Home: NextPage = () => {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: '0x61' }],
       });
+
+      window.location.reload();
     } catch (switchError: any) {
       if (switchError.code === 4902) {
         try {
@@ -63,6 +65,7 @@ const Home: NextPage = () => {
               },
             ],
           });
+          window.location.reload();
         } catch (addError) {}
       }
     }

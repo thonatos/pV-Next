@@ -13,7 +13,12 @@ const credentialRoute = async (
     return;
   }
 
-  res.json(credential);
+  res.json({
+    success: true,
+    data: {
+      credential,
+    },
+  });
 };
 
 export default withSessionRoute(credentialRoute);

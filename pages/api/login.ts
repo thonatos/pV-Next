@@ -28,13 +28,8 @@ const loginRoute = async (
   const siwe = new SiweMessage(message);
   const fileds = await siwe.validate(signature);
 
-  const { address } = fileds;
-
   const credential: Credential = {
-    isLoggedIn: true,
-    user: {
-      address,
-    },
+    siwe: fileds,
   };
 
   req.session.credential = credential;

@@ -9,7 +9,9 @@ import type { Credential } from 'next-app';
 
 export const sessionOptions: IronSessionOptions = {
   cookieName: process.env.SECRET_COOKIE_NAME || 'next',
-  password: process.env.SECRET_COOKIE_PASSWORD || '',
+  password:
+    process.env.SECRET_COOKIE_PASSWORD ||
+    'complex_password_at_least_32_characters_long',
   // secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
   cookieOptions: {
     secure: process.env.NODE_ENV === 'production',

@@ -105,9 +105,11 @@ const Home: NextPage = () => {
   };
 
   const renderAccountInfo = () => {
-    if (!accounts || accounts.length === 0) {
+    if (!web3 || !accounts || accounts.length === 0) {
       return null;
     }
+
+    const { chainId } = web3.givenProvider;
 
     return (
       <div>
@@ -124,6 +126,10 @@ const Home: NextPage = () => {
                 key={account}
                 className={styles.account}
                 onClick={() => {
+                  if(chainId !== '0x61') {
+                    alert('please switch to Switch to BSC Test Network!');
+                    return;
+                  }
                   onLogin(account);
                 }}
               >

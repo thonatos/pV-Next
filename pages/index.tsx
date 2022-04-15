@@ -2,10 +2,9 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import type { NextPage, NextPageContext } from 'next';
+import { Spacer, Button, Text } from '@nextui-org/react';
 
-import { Container, Spacer, Button, Text } from '@nextui-org/react';
-
-import styles from './index.module.css';
+import BasicLayout from 'layout/Basic';
 import useWallet from 'hooks/useWallet';
 
 const Home: NextPage = () => {
@@ -152,55 +151,44 @@ const Home: NextPage = () => {
         }}
       />
 
-      <Container
-        as="main"
-        display="flex"
-        direction="column"
-        style={{ height: '100vh' }}
-      >
-        <main className={styles.main}>
-          <div>
-            <Text h2>ρV - undefined project</Text>
-            <Spacer />
-            <Text blockquote>
-              Please install{' '}
-              <a
-                href="https://metamask.io/download/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                MetaMask
-              </a>{' '}
-              or open site with DApp Browser.
-            </Text>
-            <Spacer />
-            <Text>SSO - Auth provider powered by Ethereum & Next.js .</Text>
-            <Spacer />
-          </div>
+      <BasicLayout>
+        <div>
+          <Text h2>ρV - undefined project</Text>
+          <Spacer />
+          <Text blockquote>
+            Please install{' '}
+            <a
+              href="https://metamask.io/download/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              MetaMask
+            </a>{' '}
+            or open site with DApp Browser.
+          </Text>
+          <Spacer />
+          <Text>SSO - Auth provider powered by Ethereum & Next.js .</Text>
+          <Spacer />
+        </div>
 
-          <div>
-            <Text h4>Proposals</Text>
-            <Spacer />
-            <Text>
-              <a
-                href="https://eips.ethereum.org/EIPS/eip-4361"
-                target="_blank"
-                rel="noreferrer"
-              >
-                EIP-4361: Sign-In with Ethereum.
-              </a>
-            </Text>
-            <Spacer />
-          </div>
+        <div>
+          <Text h4>Proposals</Text>
+          <Spacer />
+          <Text>
+            <a
+              href="https://eips.ethereum.org/EIPS/eip-4361"
+              target="_blank"
+              rel="noreferrer"
+            >
+              EIP-4361: Sign-In with Ethereum.
+            </a>
+          </Text>
+          <Spacer />
+        </div>
 
-          {renderBlockchain()}
-          {renderAccountInfo()}
-        </main>
-
-        <footer className={styles.footer}>
-          <Text>{`@${new Date().getFullYear()} - implements.io`}</Text>
-        </footer>
-      </Container>
+        {renderBlockchain()}
+        {renderAccountInfo()}
+      </BasicLayout>
     </>
   );
 };

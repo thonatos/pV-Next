@@ -8,13 +8,22 @@ import useWallet from 'hooks/useWallet';
 
 const Home: NextPage = () => {
   const [nonce, setNonce] = useState('');
-  const { web3, setWeb3, accounts, personalSign } = useWallet();
+  const {
+    web3,
+    chainId,
+    initProvider,
+    addEthereumChain,
+    switchEthereumChain,
+
+    accounts,
+    personalSign,
+  } = useWallet();
 
   useEffect(() => {
     const init = async () => {
       const res = await fetch(`/api/init`);
       const { data } = await res.json();
-      console.debug('===HomePage', data);
+      console.debug('===init', data);
 
       setNonce(data.nonce);
     };
@@ -29,7 +38,7 @@ const Home: NextPage = () => {
       body: JSON.stringify(signData),
     });
     const { data } = await res.json();
-    console.debug('===HomePage.onLogin.data', data);
+    console.debug('===onLogin.data', data);
   };
 
   const onChangeNetwork = async () => {
@@ -37,37 +46,16 @@ const Home: NextPage = () => {
       return;
     }
 
-    try {
-      // @ts-ignore
-      await web3?.currentProvider?.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: '0x61' }],
-      });
+    const switchChain = await switchEthereumChain();
 
+    if (switchChain?.success) {
       window.location.reload();
-    } catch (switchError: any) {
-      if (switchError.code === 4902) {
-        try {
-          // @ts-ignore
-          await web3?.currentProvider?.request({
-            method: 'wallet_addEthereumChain',
-            params: [
-              {
-                chainId: '0x61',
-                chainName: 'BNB Smart Chain Testnet',
-                nativeCurrency: {
-                  name: 'BNB',
-                  symbol: 'BNB',
-                  decimals: 18,
-                },
-                rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
-                blockExplorerUrls: ['https://testnet.bscscan.com'],
-              },
-            ],
-          });
-          window.location.reload();
-        } catch (addError) {}
-      }
+      return;
+    }
+
+    if (switchChain?.error.code === 4902) {
+      await addEthereumChain();
+      window.location.reload();
     }
   };
 
@@ -75,8 +63,6 @@ const Home: NextPage = () => {
     if (!web3) {
       return null;
     }
-
-    const { chainId } = web3.givenProvider;
 
     if (chainId === '0x61') {
       return null;
@@ -94,7 +80,7 @@ const Home: NextPage = () => {
       return null;
     }
 
-    const { chainId, networkVersion } = web3.givenProvider;
+    const { networkVersion } = web3.givenProvider;
 
     return (
       <div>
@@ -108,11 +94,9 @@ const Home: NextPage = () => {
   };
 
   const renderAccountInfo = () => {
-    if (!web3 || !accounts || accounts.length === 0) {
+    if (!accounts || accounts.length === 0) {
       return null;
     }
-
-    const { chainId } = web3.givenProvider;
 
     return (
       <div>
@@ -129,7 +113,7 @@ const Home: NextPage = () => {
                 key={account}
                 className={styles.account}
                 onClick={() => {
-                  if(chainId !== '0x61') {
+                  if (chainId !== '0x61') {
                     alert('please switch to Switch to BSC Test Network!');
                     return;
                   }
@@ -157,11 +141,7 @@ const Home: NextPage = () => {
         id="web3"
         src="//cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"
         onLoad={() => {
-          const _web3 = new window.Web3(window?.ethereum);
-          // @ts-ignore
-          window._web3 = _web3;
-          setWeb3(_web3);
-          console.debug('===HomePage.web3.loaded');
+          initProvider();
         }}
       />
 
@@ -213,7 +193,7 @@ const Home: NextPage = () => {
 export default Home;
 
 export async function getServerSideProps(context: NextPageContext) {
-  console.log('===index.context', context.query);
+  console.log('===index.getServerSideProps', context.query);
 
   return {
     props: {}, // will be passed to the page component as props

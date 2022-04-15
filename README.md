@@ -4,7 +4,7 @@
 
 Sign-In with Ethereum.
 
-使用以太坊对加签后在后端验证签名并存储在 Session & Cookies 中，后可通过 SSO 进行验证。
+使用以太坊对加签后在服务端验证签名并存储在 Session & Cookies 中，进而实现同级域名下的 SSO 认证。
 
 use ethereum to sign your signature, verify by your backend app, then store it to session & cookies, then you can auth with SSO.
 

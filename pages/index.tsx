@@ -32,6 +32,60 @@ const Home: NextPage = () => {
     console.debug('===HomePage.onLogin.data', data);
   };
 
+  const onChangeNetwork = async () => {
+    if (!web3) {
+      return;
+    }
+
+    try {
+      // @ts-ignore
+      await web3?.currentProvider?.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: '0x61' }],
+      });
+    } catch (switchError: any) {
+      if (switchError.code === 4902) {
+        try {
+          // @ts-ignore
+          await web3?.currentProvider?.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: '0x61',
+                chainName: 'BNB Smart Chain Testnet',
+                nativeCurrency: {
+                  name: 'BNB',
+                  symbol: 'BNB',
+                  decimals: 18,
+                },
+                rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
+                blockExplorerUrls: ['https://testnet.bscscan.com'],
+              },
+            ],
+          });
+        } catch (addError) {}
+      }
+    }
+  };
+
+  const renderChangeNetwork = () => {
+    if (!web3) {
+      return null;
+    }
+
+    const { chainId } = web3.givenProvider;
+
+    if (chainId === '0x61') {
+      return null;
+    }
+
+    return (
+      <small>
+        <button onClick={onChangeNetwork}>Switch to BSC Test Network</button>
+      </small>
+    );
+  };
+
   const renderBlockchain = () => {
     if (!web3) {
       return null;
@@ -42,7 +96,9 @@ const Home: NextPage = () => {
     return (
       <div>
         <h4>Provider</h4>
-        <p>ChainId: {chainId}</p>
+        <p>
+          ChainId: {chainId} {renderChangeNetwork()}
+        </p>
         <p>NetworkVersion: {networkVersion}</p>
       </div>
     );

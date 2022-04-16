@@ -13,6 +13,21 @@ export const HomeLayout: React.FC<React.PropsWithChildren<Props>> = ({
       direction="column"
       style={{ minHeight: '100vh' }}
     >
+      <header className={styles.header}>
+        <div>
+          <Text h4>ρV - undefined project</Text>
+        </div>
+        <div>
+          <a
+            href="https://github.com/thonatos/pV-Next"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Github
+          </a>
+        </div>
+      </header>
+
       <main className={styles.main}>{children}</main>
 
       <footer className={styles.footer}>

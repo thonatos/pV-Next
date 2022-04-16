@@ -88,7 +88,7 @@ const Home: NextPage = () => {
 
     return (
       <div>
-        <Text h4>Provider</Text>
+        <Text h4>Providers</Text>
         <Spacer />
         <Text>ChainId: {chainId}</Text>
         <Text>NetworkVersion: {networkVersion}</Text>
@@ -150,7 +150,7 @@ const Home: NextPage = () => {
 
       <HomeLayout>
         <div>
-          <Text h2>ρV - undefined project</Text>
+          <Text h4>Intro</Text>
           <Spacer />
           <Text blockquote>
             Please install{' '}

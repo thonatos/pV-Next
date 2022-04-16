@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Text } from '@nextui-org/react';
+import { Container, Spacer, Text } from '@nextui-org/react';
 
 import styles from './index.module.css';
 
@@ -31,6 +31,17 @@ export const HomeLayout: React.FC<React.PropsWithChildren<Props>> = ({
       <main className={styles.main}>{children}</main>
 
       <footer className={styles.footer}>
+        <iframe
+          src="https://ghbtns.com/github-btn.html?user=thonatos&type=sponsor"
+          frameBorder="0"
+          scrolling="0"
+          width="170"
+          height="20"
+          title="GitHub"
+          style={{
+            marginBottom: '.5rem',
+          }}
+        />
         <Text>{`@${new Date().getFullYear()} - implements.io`}</Text>
       </footer>
     </Container>

@@ -8,14 +8,20 @@ const useWallet = () => {
   const [accounts, setAccounts] = useState<string[]>([]);
 
   const initProvider = useCallback(() => {
-    const _web3 = new window.Web3(window?.ethereum);
+    const ethereum = window?.ethereum;
+    if (!ethereum) {
+      return;
+    }
+
+    const _web3 = new window.Web3(ethereum);
     // @ts-ignore
     window._web3 = _web3;
     setWeb3(_web3);
 
-    const _chainId = _web3.givenProvider.chainId;
-
-    setChainId(_chainId);
+    const _chainId = _web3?.currentProvider?.chainId;
+    if (_chainId) {
+      setChainId(_chainId);
+    }
   }, []);
 
   const addEthereumChain = useCallback(async () => {
@@ -159,11 +165,11 @@ const useWallet = () => {
       return;
     }
 
-    web3.givenProvider.on('chainChanged', (chainId: string) => {
+    web3?.givenProvider?.on('chainChanged', (chainId: string) => {
       setChainId(chainId);
     });
 
-    web3.givenProvider.on('accountsChanged', (_accounts: string[]) => {
+    web3?.givenProvider?.on('accountsChanged', (_accounts: string[]) => {
       setAccounts(_accounts);
     });
   }, [web3]);

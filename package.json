@@ -11,6 +11,8 @@
     "prettier": "prettier --write ."
   },
   "dependencies": {
+    "@mdx-js/loader": "^2.1.1",
+    "@next/mdx": "^12.1.5",
     "@nextui-org/react": "^1.0.8-beta.5",
     "ahooks": "^3.3.0",
     "iron-session": "^6.1.2",

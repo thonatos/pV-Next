@@ -4,7 +4,7 @@ import Script from 'next/script';
 import type { NextPage, NextPageContext } from 'next';
 import { Spacer, Button, Text } from '@nextui-org/react';
 
-import BasicLayout from 'layout/Basic';
+import HomeLayout from 'layout/HomeLayout';
 import useWallet from 'hooks/useWallet';
 
 const Home: NextPage = () => {
@@ -80,7 +80,7 @@ const Home: NextPage = () => {
   };
 
   const renderBlockchain = () => {
-    if (!web3) {
+    if (!web3 || !web3.givenProvider) {
       return null;
     }
 
@@ -90,11 +90,8 @@ const Home: NextPage = () => {
       <div>
         <Text h4>Provider</Text>
         <Spacer />
-        <Text>
-          ChainId: {chainId}
-          <br />
-          NetworkVersion: {networkVersion}
-        </Text>
+        <Text>ChainId: {chainId}</Text>
+        <Text>NetworkVersion: {networkVersion}</Text>
         <Spacer />
         {renderChangeNetwork()}
       </div>
@@ -115,7 +112,7 @@ const Home: NextPage = () => {
         <div>
           {accounts.map((account) => {
             return (
-              <div
+              <Text
                 key={account}
                 onClick={() => {
                   if (chainId !== '0x61') {
@@ -126,7 +123,7 @@ const Home: NextPage = () => {
                 }}
               >
                 {account}
-              </div>
+              </Text>
             );
           })}
         </div>
@@ -151,7 +148,7 @@ const Home: NextPage = () => {
         }}
       />
 
-      <BasicLayout>
+      <HomeLayout>
         <div>
           <Text h2>ρV - undefined project</Text>
           <Spacer />
@@ -188,7 +185,7 @@ const Home: NextPage = () => {
 
         {renderBlockchain()}
         {renderAccountInfo()}
-      </BasicLayout>
+      </HomeLayout>
     </>
   );
 };

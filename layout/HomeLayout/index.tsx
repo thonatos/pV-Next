@@ -3,7 +3,7 @@ import { Container, Text } from '@nextui-org/react';
 
 import styles from './index.module.css';
 
-export const BasicLayout: React.FC<React.PropsWithChildren<Props>> = ({
+export const HomeLayout: React.FC<React.PropsWithChildren<Props>> = ({
   children,
 }) => {
   return (
@@ -11,7 +11,7 @@ export const BasicLayout: React.FC<React.PropsWithChildren<Props>> = ({
       as="main"
       display="flex"
       direction="column"
-      style={{ height: '100vh' }}
+      style={{ minHeight: '100vh' }}
     >
       <main className={styles.main}>{children}</main>
 
@@ -22,6 +22,6 @@ export const BasicLayout: React.FC<React.PropsWithChildren<Props>> = ({
   );
 };
 
-export default BasicLayout;
+export default HomeLayout;
 
 interface Props {}

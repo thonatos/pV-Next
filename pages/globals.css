@@ -9,3 +9,8 @@ body {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --primaryColor: #8264ff;
+  --layout-header-background: #fff;
+}

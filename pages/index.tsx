@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Script from 'next/script';
 import type { NextPage, NextPageContext } from 'next';
-import { Spacer, Button, Text } from '@nextui-org/react';
+import { Button, Typography } from 'antd';
+
+const { Title, Paragraph, Link } = Typography;
 
 import HomeLayout from 'layout/HomeLayout';
 import useWallet from 'hooks/useWallet';
@@ -70,12 +72,9 @@ const Home: NextPage = () => {
     }
 
     return (
-      <>
-        <Button size="sm" onClick={onChangeNetwork}>
-          Switch to BSC Test Network
-        </Button>
-        <Spacer />
-      </>
+      <Button size="small" onClick={onChangeNetwork}>
+        Switch to BSC Test Network
+      </Button>
     );
   };
 
@@ -87,14 +86,17 @@ const Home: NextPage = () => {
     const { networkVersion } = web3.givenProvider;
 
     return (
-      <div>
-        <Text h4>Providers</Text>
-        <Spacer />
-        <Text>ChainId: {chainId}</Text>
-        <Text>NetworkVersion: {networkVersion}</Text>
-        <Spacer />
-        {renderChangeNetwork()}
-      </div>
+      <Typography>
+        <Title level={4}>Providers</Title>
+        <Paragraph>
+          <ul>
+            <li>ChainId: {chainId}</li>
+            <li>
+              NetworkVersion: {networkVersion} {renderChangeNetwork()}
+            </li>
+          </ul>
+        </Paragraph>
+      </Typography>
     );
   };
 
@@ -104,31 +106,34 @@ const Home: NextPage = () => {
     }
 
     return (
-      <div>
-        <Text h4>Accounts</Text>
-        <Spacer />
-        <Text blockquote>Click wallet address to Sign-In with Ethereum .</Text>
-        <Spacer />
-        <div>
-          {accounts.map((account) => {
-            return (
-              <Text
-                key={account}
-                onClick={() => {
-                  if (chainId !== '0x61') {
-                    alert('please switch to Switch to BSC Test Network!');
-                    return;
-                  }
-                  onLogin(account);
-                }}
-              >
-                {account}
-              </Text>
-            );
-          })}
-        </div>
-        <Spacer />
-      </div>
+      <Typography>
+        <Title level={4}>Accounts</Title>
+        <Paragraph>
+          <blockquote>
+            Click wallet address to Sign-In with Ethereum .
+          </blockquote>
+        </Paragraph>
+        <Paragraph>
+          <ul>
+            {accounts.map((account) => {
+              return (
+                <li
+                  key={account}
+                  onClick={() => {
+                    if (chainId !== '0x61') {
+                      alert('please switch to Switch to BSC Test Network!');
+                      return;
+                    }
+                    onLogin(account);
+                  }}
+                >
+                  {account}
+                </li>
+              );
+            })}
+          </ul>
+        </Paragraph>
+      </Typography>
     );
   };
 
@@ -149,39 +154,34 @@ const Home: NextPage = () => {
       />
 
       <HomeLayout>
-        <div>
-          <Text h4>Intro</Text>
-          <Spacer />
-          <Text blockquote>
-            Please install{' '}
-            <a
-              href="https://metamask.io/download/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              MetaMask
-            </a>{' '}
-            or open site with DApp Browser.
-          </Text>
-          <Spacer />
-          <Text>SSO - Auth provider powered by Ethereum & Next.js .</Text>
-          <Spacer />
-        </div>
+        <Typography>
+          <Title level={4}>Intro</Title>
+          <Paragraph>
+            <blockquote>
+              Please install{' '}
+              <a
+                href="https://metamask.io/download/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                MetaMask
+              </a>{' '}
+              or open site with DApp Browser.
+            </blockquote>
+          </Paragraph>
+          <Paragraph>
+            SSO - Auth provider powered by Ethereum & Next.js .
+          </Paragraph>
+        </Typography>
 
-        <div>
-          <Text h4>Proposals</Text>
-          <Spacer />
-          <Text>
-            <a
-              href="https://eips.ethereum.org/EIPS/eip-4361"
-              target="_blank"
-              rel="noreferrer"
-            >
+        <Typography>
+          <Title level={4}>Proposals</Title>
+          <Paragraph>
+            <Link href="https://eips.ethereum.org/EIPS/eip-4361">
               EIP-4361: Sign-In with Ethereum.
-            </a>
-          </Text>
-          <Spacer />
-        </div>
+            </Link>
+          </Paragraph>
+        </Typography>
 
         {renderBlockchain()}
         {renderAccountInfo()}

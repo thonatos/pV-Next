@@ -1,4 +1,4 @@
-import { Container } from '@nextui-org/react';
+import { Row, Col } from '@antd';
 
 ## ρV
 
@@ -7,5 +7,9 @@ import { Container } from '@nextui-org/react';
 Powered by Next.js & MDX.js .
 
 export default ({ children }) => {
-  return <Container style={{ marginTop: '2rem' }}>{children}</Container>;
+  return (
+    <Row style={{ marginTop: '2rem' }}>
+      <Col>{children}</Col>
+    </Row>
+  );
 };

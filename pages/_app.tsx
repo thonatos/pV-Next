@@ -1,12 +1,14 @@
+import 'antd/dist/antd.css';
 import './globals.css';
-import { NextUIProvider } from '@nextui-org/react';
+
+import { ConfigProvider } from 'antd';
 import type { AppProps } from 'next/app';
 
 function App({ Component, pageProps }: AppProps) {
   return (
-    <NextUIProvider>
+    <ConfigProvider>
       <Component {...pageProps} />
-    </NextUIProvider>
+    </ConfigProvider>
   );
 }
 

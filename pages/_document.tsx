@@ -1,5 +1,4 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { CssBaseline } from '@nextui-org/react';
 import type { DocumentContext } from 'next/document';
 
 // @ts-ignore
@@ -15,7 +14,9 @@ class CustomDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>{CssBaseline.flush()}</Head>
+        <Head>
+          {/* <script src='//cdn.jsdelivr.net/npm/antd@4.x/dist/antd.min.css' /> */}
+        </Head>
         <body>
           <Main />
           <NextScript />

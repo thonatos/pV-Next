@@ -1,4 +1,4 @@
-import { Row, Col } from '@antd';
+import Layout from 'layout/DocLayout';
 
 ## ρV
 
@@ -8,8 +8,8 @@ Powered by Next.js & MDX.js .
 
 export default ({ children }) => {
   return (
-    <Row style={{ marginTop: '2rem' }}>
-      <Col>{children}</Col>
-    </Row>
+    <Layout style={{ marginTop: '2rem' }}>
+      {children}
+    </Layout>
   );
 };
